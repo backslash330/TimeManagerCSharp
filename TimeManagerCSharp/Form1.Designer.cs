@@ -29,7 +29,7 @@ namespace TimeManagerCSharp
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.employeeListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -39,14 +39,15 @@ namespace TimeManagerCSharp
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // employeeListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(13, 33);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(266, 284);
-            this.listBox1.TabIndex = 0;
+            this.employeeListBox.FormattingEnabled = true;
+            this.employeeListBox.ItemHeight = 20;
+            this.employeeListBox.Location = new System.Drawing.Point(13, 33);
+            this.employeeListBox.Name = "employeeListBox";
+            this.employeeListBox.Size = new System.Drawing.Size(266, 284);
+            this.employeeListBox.TabIndex = 0;
+            this.employeeListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -113,7 +114,7 @@ namespace TimeManagerCSharp
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.employeeListBox);
             this.Name = "Form1";
             this.Text = "Time Manager - Employee Area";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -124,7 +125,7 @@ namespace TimeManagerCSharp
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox employeeListBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
