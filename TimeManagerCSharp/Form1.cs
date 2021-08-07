@@ -16,22 +16,41 @@ namespace TimeManagerCSharp
         public Form1()
         {
             InitializeComponent();
-            OnLoad();
         }
         
-        protected override void OnLoad(EventArgs)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            MySqlConnection conn = new MySqlConnection("server=localhost;user id=root;persistsecurityinfo=True;database=timemanagmentdatabase");
+
+        }
+
+        // employee list box
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            MySqlConnection.ClearAllPools();
+            MySqlConnection conn = new MySqlConnection("persistsecurityinfo=True;server=localhost;user id=backslash330;database=timemanager");
+            
             try
             {
+                employeeListBox.Items.Add("TEST");
+                employeeListBox.Items.Add("TEST");
+
                 conn.Open();
+                employeeListBox.Items.Add("TEST");
 
                 string SQL = "SELECT FirstName from employees ";
                 MySqlCommand cmd = new MySqlCommand(SQL, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
-                    {
-                    ListBox1.Items.Add
+                {
+                    employeeListBox.Items.Add("This is a test");
+                    employeeListBox.Items.Add("This is a test");
                 }
                 reader.Close();
             }
@@ -43,17 +62,12 @@ namespace TimeManagerCSharp
 
             conn.Close();
             Console.WriteLine("Done.");
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            
         }
 
-        // employee list box
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

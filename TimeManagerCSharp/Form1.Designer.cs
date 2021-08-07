@@ -42,62 +42,70 @@ namespace TimeManagerCSharp
             // employeeListBox
             // 
             this.employeeListBox.FormattingEnabled = true;
-            this.employeeListBox.ItemHeight = 20;
-            this.employeeListBox.Location = new System.Drawing.Point(13, 33);
+            this.employeeListBox.ItemHeight = 15;
+            this.employeeListBox.Location = new System.Drawing.Point(11, 25);
+            this.employeeListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.employeeListBox.Name = "employeeListBox";
-            this.employeeListBox.Size = new System.Drawing.Size(266, 284);
+            this.employeeListBox.Size = new System.Drawing.Size(233, 214);
             this.employeeListBox.TabIndex = 0;
             this.employeeListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 346);
+            this.button1.Location = new System.Drawing.Point(10, 260);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.Size = new System.Drawing.Size(82, 22);
             this.button1.TabIndex = 1;
             this.button1.Text = "Sign In";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(185, 346);
+            this.button2.Location = new System.Drawing.Point(162, 260);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
+            this.button2.Size = new System.Drawing.Size(82, 22);
             this.button2.TabIndex = 2;
             this.button2.Text = "Sign Out";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 394);
+            this.button3.Location = new System.Drawing.Point(10, 296);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(267, 29);
+            this.button3.Size = new System.Drawing.Size(234, 22);
             this.button3.TabIndex = 3;
             this.button3.Text = "Request Time Adjustment";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(397, 33);
+            this.pictureBox1.Location = new System.Drawing.Point(347, 25);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(334, 284);
+            this.pictureBox1.Size = new System.Drawing.Size(292, 213);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(495, 394);
+            this.button4.Location = new System.Drawing.Point(433, 296);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(149, 29);
+            this.button4.Size = new System.Drawing.Size(130, 22);
             this.button4.TabIndex = 5;
             this.button4.Text = "Admin Area";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(495, 346);
+            this.textBox1.Location = new System.Drawing.Point(433, 260);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(149, 27);
+            this.textBox1.Size = new System.Drawing.Size(131, 23);
             this.textBox1.TabIndex = 6;
             this.textBox1.Text = "Password Required";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -105,9 +113,9 @@ namespace TimeManagerCSharp
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.pictureBox1);
@@ -115,8 +123,10 @@ namespace TimeManagerCSharp
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.employeeListBox);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Time Manager - Employee Area";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
