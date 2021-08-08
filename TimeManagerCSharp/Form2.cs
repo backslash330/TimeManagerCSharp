@@ -26,5 +26,10 @@ namespace TimeManagerCSharp
             Form1 f1 = new Form1();
             f1.ShowDialog();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

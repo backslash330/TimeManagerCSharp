@@ -32,7 +32,7 @@ namespace TimeManagerCSharp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            pictureBox1.Image = Properties.Resources.nslogo;
             // clear and connect to database
             MySqlConnection.ClearAllPools();
             MySqlConnection conn = new MySqlConnection("server=localhost;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
@@ -274,9 +274,28 @@ namespace TimeManagerCSharp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form2 f2 = new Form2();
-            f2.ShowDialog();
+            string correctPassword = "test";
+            string inputPassword = textBox1.Text;
+            if (inputPassword == correctPassword)
+            {
+                this.Hide();
+                Form2 f2 = new Form2();
+                f2.ShowDialog();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Incorrect Password");
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

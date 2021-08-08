@@ -34,7 +34,6 @@ namespace TimeManagerCSharp
 
             //capture text input
             string body = richTextBox1.Text;
-            System.Windows.Forms.MessageBox.Show(body);
 
 
             //capture time 
@@ -42,9 +41,9 @@ namespace TimeManagerCSharp
             string nowFormat = now.ToString("yyyy - MM - dd hh: mm:ss");
             string subject = string.Format("TimeManager Adjustment Request {0}", nowFormat);
 
-            var fromAddress = new MailAddress(", "From Name");
-            var toAddress = new MailAddress("", "To Name");
-            const string fromPassword = "";
+            var fromAddress = new MailAddress("n.almeida3300@gmail.com", "North Star Support");
+            var toAddress = new MailAddress("northstarautomotives@gmail.com", "North Star Auto");
+            const string fromPassword = "OrionsBelt";
 
             var smtp = new SmtpClient
             {
@@ -63,7 +62,8 @@ namespace TimeManagerCSharp
             {
                 smtp.Send(message);
             }
+            System.Windows.Forms.MessageBox.Show("Message Successfully Sent");
 
-        }    
+        }
     }
 }
