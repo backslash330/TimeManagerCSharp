@@ -267,10 +267,10 @@ namespace TimeManagerCSharp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
             RequestForm f3 = new RequestForm();
-            f3.Closed += (s, args) => this.Close();
-            f3.Show();
+            this.Hide();
+            f3.ShowDialog();
+            this.Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
