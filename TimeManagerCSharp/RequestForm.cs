@@ -10,9 +10,9 @@ using System.Net.Mail;
 
 namespace TimeManagerCSharp
 {
-    public partial class Form3 : Form
+    public partial class RequestForm : Form
     {
-        public Form3()
+        public RequestForm()
         {
             InitializeComponent();
         }
@@ -24,9 +24,10 @@ namespace TimeManagerCSharp
 
         private void button2_Click(object sender, EventArgs e)
         {
+            MainMenu f1 = new MainMenu();
             this.Hide();
-            Form1 f1 = new Form1();
             f1.ShowDialog();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,5 +66,11 @@ namespace TimeManagerCSharp
             System.Windows.Forms.MessageBox.Show("Message Successfully Sent");
 
         }
+
+        private void RequestForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

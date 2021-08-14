@@ -1,7 +1,7 @@
 ﻿
 namespace TimeManagerCSharp
 {
-    partial class Form3
+    partial class RequestForm
     {
         /// <summary>
         /// Required designer variable.

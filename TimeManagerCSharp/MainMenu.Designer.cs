@@ -1,7 +1,7 @@
 ﻿
 namespace TimeManagerCSharp
 {
-    partial class Form1
+    partial class MainMenu
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace TimeManagerCSharp
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.employeeListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -114,7 +114,7 @@ namespace TimeManagerCSharp
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
             // 
-            // Form1
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,7 +126,7 @@ namespace TimeManagerCSharp
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.employeeListBox);
-            this.Name = "Form1";
+            this.Name = "MainMenu";
             this.Text = "Time Manager - Employee Area";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

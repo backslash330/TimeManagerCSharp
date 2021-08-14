@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace TimeManagerCSharp
 {
-    public partial class Form2 : Form
+    public partial class AdminMenu : Form
     {
-        public Form2()
+        public AdminMenu()
         {
             InitializeComponent();
         }
@@ -22,14 +22,21 @@ namespace TimeManagerCSharp
 
         private void button5_Click(object sender, EventArgs e)
         {
+            MainMenu f1 = new MainMenu();
             this.Hide();
-            Form1 f1 = new Form1();
             f1.ShowDialog();
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void AdminMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

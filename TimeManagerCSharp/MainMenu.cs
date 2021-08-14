@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 
 namespace TimeManagerCSharp
 {
-    public partial class Form1 : Form
+    public partial class MainMenu : Form
     {
-        public Form1()
+        public MainMenu()
         {
             InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace TimeManagerCSharp
             pictureBox1.Image = Properties.Resources.nslogo;
             // clear and connect to database
             MySqlConnection.ClearAllPools();
-            MySqlConnection conn = new MySqlConnection("server=84.17.41.86;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
+            MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
 
 
             // populate listbox with active employee names from employees table            
@@ -268,8 +268,9 @@ namespace TimeManagerCSharp
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form3 f3 = new Form3();
-            f3.ShowDialog();
+            RequestForm f3 = new RequestForm();
+            f3.Closed += (s, args) => this.Close();
+            f3.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -278,15 +279,16 @@ namespace TimeManagerCSharp
             string inputPassword = textBox1.Text;
             if (inputPassword == correctPassword)
             {
+                AdminMenu f2 = new AdminMenu();
                 this.Hide();
-                Form2 f2 = new Form2();
                 f2.ShowDialog();
+                this.Close();
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Incorrect Password");
             }
-        }
+        } 
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -297,5 +299,11 @@ namespace TimeManagerCSharp
         {
 
         }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }
