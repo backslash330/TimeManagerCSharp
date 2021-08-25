@@ -49,6 +49,7 @@ namespace TimeManagerCSharp
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(85, 87);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(250, 27);
@@ -57,6 +58,7 @@ namespace TimeManagerCSharp
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker2.Location = new System.Drawing.Point(85, 238);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(250, 27);
@@ -71,6 +73,7 @@ namespace TimeManagerCSharp
             this.button1.TabIndex = 4;
             this.button1.Text = "Get Payroll Hours";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -117,9 +120,9 @@ namespace TimeManagerCSharp
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(147, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 20);
+            this.label1.Size = new System.Drawing.Size(124, 20);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Payroll Star Date";
+            this.label1.Text = "Payroll Start Date";
             // 
             // label2
             // 

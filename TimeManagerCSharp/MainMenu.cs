@@ -260,7 +260,7 @@ namespace TimeManagerCSharp
                     Console.WriteLine(ex.ToString());
                 }
                 conn.Close();
-                System.Windows.Forms.MessageBox.Show("Login Successful");
+                System.Windows.Forms.MessageBox.Show("Logout Successful");
 
             }
         }

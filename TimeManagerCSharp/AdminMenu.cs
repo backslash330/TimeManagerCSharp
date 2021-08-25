@@ -171,5 +171,64 @@ namespace TimeManagerCSharp
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //turn start date into variable
+            string startDate = dateTimePicker1.Text;
+           // System.Windows.Forms.MessageBox.Show(startDate);
+            // format august 25, 2021 while sql is 2021-08-25
+
+            //grab employeids
+            MySqlConnection.ClearAllPools();
+            MySqlConnection conn = new MySqlConnection("server=localhost;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
+            conn.Open();
+            /*
+            string SQL = "select EmployeeID from employees;";
+            List<string> EmployeeID = new List<string>(10);
+            MySqlCommand cmd = new MySqlCommand(SQL, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                EmployeeID.Add(reader.GetString(0));
+            }
+            reader.Close();
+
+            foreach (var id in EmployeeID)
+            {
+
+            }
+            */
+
+            string SQLTemplate = "SELECT time FROM signin WHERE EmployeeID ='{0}' and Date = '{1}'";
+            string EmployeeID = "1";
+            string SQL = string.Format(SQLTemplate, EmployeeID, startDate);
+            MySqlCommand cmd = new MySqlCommand(SQL, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            string shiftStartTime = "";
+
+            while (reader.Read())
+            {
+                shiftStartTime = reader.GetString(0);
+            }
+
+            reader.Close();
+
+            SQLTemplate = "SELECT time FROM signout WHERE EmployeeID ='{0}' and Date = '{1}'";
+            EmployeeID = "1";
+            SQL = string.Format(SQLTemplate, EmployeeID, startDate);
+            cmd = new MySqlCommand(SQL, conn);
+            reader = cmd.ExecuteReader();
+            string shiftEndTime = "";
+
+            while (reader.Read())
+            {
+                shiftEndTime = reader.GetString(0);
+            }
+            reader.Close();
+
+
+
+        }
     }
 }
