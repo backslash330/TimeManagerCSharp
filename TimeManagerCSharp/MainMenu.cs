@@ -35,8 +35,8 @@ namespace TimeManagerCSharp
             pictureBox1.Image = Properties.Resources.nslogo;
             // clear and connect to database
             MySqlConnection.ClearAllPools();
-            MySqlConnection conn2 = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
-            MySqlConnection conn = new MySqlConnection("server = 192.168.56.1; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
+            MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
+            MySqlConnection conn2 = new MySqlConnection("server = 192.168.56.1; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
 
             // populate listbox with active employee names from employees table            
             try
@@ -275,19 +275,35 @@ namespace TimeManagerCSharp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string correctPassword = "test";
-            string inputPassword = textBox1.Text;
-            if (inputPassword == correctPassword)
+
+
+            MySqlConnection.ClearAllPools();
+            MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
+
+            conn.Open();
+
+            string SQLTemplate = "SELECT * from adminpassword";
+            string SQL = string.Format(SQLTemplate);
+            MySqlCommand cmd = new MySqlCommand(SQL, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                AdminMenu f2 = new AdminMenu();
-                this.Hide();
-                f2.ShowDialog();
-                this.Close();
+                string correctPassword = reader.GetString(0);
+                string inputPassword = textBox1.Text;
+                if (inputPassword == correctPassword)
+                {
+                    AdminMenu f2 = new AdminMenu();
+                    this.Hide();
+                    f2.ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Incorrect Password");
+                }
             }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("Incorrect Password");
-            }
+
         } 
 
         private void pictureBox1_Click(object sender, EventArgs e)

@@ -45,9 +45,9 @@ namespace TimeManagerCSharp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(252, 52);
+            this.label1.Location = new System.Drawing.Point(288, 69);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(270, 15);
+            this.label1.Size = new System.Drawing.Size(338, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Please write your request below then click submit!";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -55,17 +55,20 @@ namespace TimeManagerCSharp
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(156, 95);
+            this.richTextBox1.Location = new System.Drawing.Point(178, 127);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(487, 200);
+            this.richTextBox1.Size = new System.Drawing.Size(556, 265);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(360, 326);
+            this.button1.Location = new System.Drawing.Point(411, 435);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 31);
             this.button1.TabIndex = 2;
             this.button1.Text = "Submit Request";
             this.button1.UseVisualStyleBackColor = true;
@@ -73,24 +76,26 @@ namespace TimeManagerCSharp
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(313, 400);
+            this.button2.Location = new System.Drawing.Point(358, 533);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(165, 23);
+            this.button2.Size = new System.Drawing.Size(189, 31);
             this.button2.TabIndex = 3;
             this.button2.Text = "Return to Previous Screen";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Form3
+            // RequestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form3";
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "RequestForm";
             this.Text = "Form3";
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
