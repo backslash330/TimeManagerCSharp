@@ -37,7 +37,7 @@ namespace TimeManagerCSharp
             MySqlConnection.ClearAllPools();
             MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
             MySqlConnection conn2 = new MySqlConnection("server = 192.168.56.1; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
-
+            // a note to test the changes made. 
             // populate listbox with active employee names from employees table            
             try
             {
