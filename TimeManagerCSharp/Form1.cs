@@ -34,18 +34,38 @@ namespace TimeManagerCSharp
             // System.Windows.Forms.MessageBox.Show(startDate);
             // format 2021-08-25 same as sql
 
+            // load columns in dataGrid
             this.dataGridView1.Columns.Add("EmployeeID", "EmployeeID");
             this.dataGridView1.Columns.Add("Name", "Name");
             this.dataGridView1.Columns.Add("Amount of Hours Worked", "Amount of Hours Worked");
             this.dataGridView1.Columns.Add("Days Worked", "Days Worked");
-            this.dataGridView1.Columns.Add("Estiamted Breaks", "Estimated Breaks");
-            this.dataGridView1.Columns.Add("Estiamted Billable Hours", "Estimated Billable Hours");
+            this.dataGridView1.Columns.Add("Days with Partial Logins", "Days with Partial Logins");
+            this.dataGridView1.Columns.Add("Estimated Breaks", "Estimated Breaks");
+            this.dataGridView1.Columns.Add("Estimated Billable Hours", "Estimated Billable Hours");
+
+            // Initalize Variables
+            int daycount = 0;
+            int partialDaycount = 0;
+            int row = 0;
+            int cell = 0;
+            int daycountRow = 0;
+            string shiftStartTime = "";
+            string shiftEndTime = "";
+            TimeSpan totalHoursWorked = new TimeSpan();
+            TimeSpan fourHourTS = new TimeSpan(4, 0, 0);
+            TimeSpan eightHourTS = new TimeSpan(8, 0, 0);
+            TimeSpan breakTotal = new TimeSpan();
+            TimeSpan thirtyMinuteBreak = new TimeSpan(0, 3, 0);
+            TimeSpan oneHourBeak = new TimeSpan(1, 0, 0);
+            TimeSpan billabeHours = new TimeSpan();
+            
 
             //grab employeids
             MySqlConnection.ClearAllPools();
             MySqlConnection conn = new MySqlConnection("server=localhost;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
             conn.Open();
 
+            // Add EmployeeIDs to a List
             string SQL = "select EmployeeID from employees;";
             List<string> EmployeeID = new List<string>(10);
             MySqlCommand cmd = new MySqlCommand(SQL, conn);
@@ -56,66 +76,141 @@ namespace TimeManagerCSharp
             }
             reader.Close();
 
+            // Loop through IDs In EmployeeID List
             foreach (var id in EmployeeID)
             {
+                // Ensure reader is closed
+                reader.Close();
+
+
+                // Populate dataGrid with appropriate rows
+                this.dataGridView1.Rows.Add(id);
+
+
+                // Populate cells with appropriate names
+                string SQLTemplate = " Select FirstName from employees where EmployeeID = {0}";
+                SQL = string.Format(SQLTemplate, id);
+                cmd = new MySqlCommand(SQL, conn);
+                reader = cmd.ExecuteReader();
+                cell = 1;
+                while (reader.Read())
+                {
+                        string name = reader.GetString(0);
+                        this.dataGridView1.Rows[row].Cells[cell].Value = name;
+                        row = ++(row);
+
+                }
+                reader.Close();
+
+                // set daycount to zero
+                daycount = 0;
+                partialDaycount = 0;
+                totalHoursWorked = TimeSpan.Zero;
+                breakTotal = TimeSpan.Zero;
+                billabeHours = TimeSpan.Zero;
+
+                // Loop through each selected day
                 for (var day = selectedStartDateTime.Date; day.Date <= selectedEndDateTime.Date; day = day.AddDays(1))
                 {
-                    string SQLTemplate = "SELECT time FROM signin WHERE EmployeeID ='{0}' and Date = '{1}'";
-                    SQL = string.Format(SQLTemplate, id, startDate);
+                    // Check in employee logged in on given day
+                    reader.Close();
+                    SQLTemplate = "SELECT time FROM signin WHERE EmployeeID ='{0}' and Date = '{1}'";
+                    SQL = string.Format(SQLTemplate, id, day.ToShortDateString());
                     cmd = new MySqlCommand(SQL, conn);
                     reader = cmd.ExecuteReader();
-                    string shiftStartTime = "";
+                    shiftStartTime = "";
 
+
+                    // else, continue to see if the employee logged out on the given day
                     while (reader.Read())
                     {
-                        shiftStartTime = reader.GetString(0);
+                            shiftStartTime = reader.GetString(0);
                     }
 
                     reader.Close();
-
                     SQLTemplate = "SELECT time FROM signout WHERE EmployeeID ='{0}' and Date = '{1}'";
-                    SQL = string.Format(SQLTemplate, id, startDate);
+                    SQL = string.Format(SQLTemplate, id, day.ToShortDateString());
                     cmd = new MySqlCommand(SQL, conn);
                     reader = cmd.ExecuteReader();
-                    string shiftEndTime = "";
-
+                    shiftEndTime = "";
+  
+                    // else, contine to calcuate the employees working hours
                     while (reader.Read())
                     {
                         shiftEndTime = reader.GetString(0);
                     }
                     reader.Close();
 
+                    // check if the login/logout was incomplete or the employee did not work that day
+                    if (string.IsNullOrEmpty(shiftStartTime) || string.IsNullOrEmpty(shiftEndTime))
+                    {
+                        if (string.IsNullOrEmpty(shiftStartTime) && string.IsNullOrEmpty(shiftEndTime))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            partialDaycount = ++(partialDaycount);
+                            continue;
+                        }
+                    }
+
+                    // convert strings to datetime objects and calculate working hours 
                     string shiftStartTimeString = startDate + " " + shiftStartTime;
-
                     var startDateTime = DateTime.Parse(shiftStartTimeString);
-
                     string shiftEndTimeString = startDate + " " + shiftEndTime;
-
                     var endDateTime = DateTime.Parse(shiftEndTimeString);
+                    TimeSpan hoursWorkedToday = endDateTime.Subtract(startDateTime);
+                    totalHoursWorked = totalHoursWorked.Add(hoursWorkedToday);
+                    hoursWorkedToday = TimeSpan.Zero;
 
-                    System.TimeSpan difference = endDateTime.Subtract(startDateTime);
+                    //increment the daycount timer 00:00:00
+                    daycount = ++daycount;
+                    string daycountString1 = daycount.ToString();
+ 
 
-                    string hoursWorked = difference.ToString();
+                    if (TimeSpan.Compare(hoursWorkedToday, fourHourTS) <= 0)
+                    {
+                        continue;
+                    }
+                    else if (TimeSpan.Compare(hoursWorkedToday, eightHourTS) <= 0)
+                    {
+                        breakTotal = breakTotal.Add(thirtyMinuteBreak);
+                    }
+                    else if (TimeSpan.Compare(hoursWorkedToday, eightHourTS) < 0)
+                    {
+                        breakTotal = breakTotal.Add(oneHourBeak);
+                    }
+                    else
+                    {
+                        MessageBox.Show("lunchbreak calculation Error");
+                    }
 
-                    System.Windows.Forms.MessageBox.Show(shiftStartTimeString);
-                    System.Windows.Forms.MessageBox.Show(shiftEndTimeString);
-                    System.Windows.Forms.MessageBox.Show(hoursWorked);
+                    billabeHours = hoursWorkedToday.Subtract(breakTotal);
+ 
+
                 }
+                this.dataGridView1.Rows[daycountRow].Cells[2].Value = totalHoursWorked.ToString();
+                this.dataGridView1.Rows[daycountRow].Cells[3].Value = daycount.ToString();
+                this.dataGridView1.Rows[daycountRow].Cells[4].Value = partialDaycount.ToString();
+                this.dataGridView1.Rows[daycountRow].Cells[5].Value = breakTotal.ToString();
+                this.dataGridView1.Rows[daycountRow].Cells[6].Value = billabeHours.ToString();
+                daycountRow = ++(daycountRow);
             }
 
-
-            for (var day = selectedStartDateTime.Date; day.Date <= selectedEndDateTime.Date; day = day.AddDays(1))
-            {
-                System.Windows.Forms.MessageBox.Show(day.ToShortDateString());
-            }
-
-
-
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+
     }
 }
