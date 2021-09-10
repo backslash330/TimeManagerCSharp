@@ -211,6 +211,20 @@ namespace TimeManagerCSharp
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AdminMenu f2 = new AdminMenu();
+            this.Hide();
+            f2.ShowDialog();
+            this.Close();
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MainMenu f1 = new MainMenu();
+            this.Hide();
+            f1.ShowDialog();
+            this.Close();
+        }
     }
 }
