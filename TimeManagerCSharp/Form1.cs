@@ -162,12 +162,16 @@ namespace TimeManagerCSharp
                     var endDateTime = DateTime.Parse(shiftEndTimeString);
                     TimeSpan hoursWorkedToday = endDateTime.Subtract(startDateTime);
                     totalHoursWorked = totalHoursWorked.Add(hoursWorkedToday);
-                    hoursWorkedToday = TimeSpan.Zero;
+
 
                     //increment the daycount timer 00:00:00
                     daycount = ++daycount;
                     string daycountString1 = daycount.ToString();
- 
+
+                    // Error between these two lines 
+                    MessageBox.Show(hoursWorkedToday.ToString());
+                    MessageBox.Show(totalHoursWorked.ToString());
+
 
                     if (TimeSpan.Compare(hoursWorkedToday, fourHourTS) <= 0)
                     {
@@ -187,9 +191,12 @@ namespace TimeManagerCSharp
                     }
 
                     billabeHours = hoursWorkedToday.Subtract(breakTotal);
- 
 
+                    hoursWorkedToday = TimeSpan.Zero;
                 }
+
+
+
                 this.dataGridView1.Rows[daycountRow].Cells[2].Value = totalHoursWorked.ToString();
                 this.dataGridView1.Rows[daycountRow].Cells[3].Value = daycount.ToString();
                 this.dataGridView1.Rows[daycountRow].Cells[4].Value = partialDaycount.ToString();

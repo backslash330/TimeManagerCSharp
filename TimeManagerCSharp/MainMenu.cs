@@ -82,6 +82,14 @@ namespace TimeManagerCSharp
                 string timeFormat = now.ToLongTimeString();   // display format:  11:45:44 AM
                 string dateFormat = now.ToShortDateString();  // display format:  5/22/2010
 
+                string boxSelectConfirmation = employeeListBox.SelectedItem.ToString().ToLower().Trim();
+                string writtenConfirmation = textBox2.Text.ToLower().Trim();
+                if (boxSelectConfirmation != writtenConfirmation)
+                {
+                    System.Windows.Forms.MessageBox.Show("ERROR:Selected name and written name do not match. NOT LOGGED OUT");
+                    return;
+                }
+
                 // Retrieve EmployeeID
                 // clear and connect to database
                 MySqlConnection.ClearAllPools();
@@ -184,13 +192,21 @@ namespace TimeManagerCSharp
                 string timeFormat = now.ToLongTimeString();   // display format:  11:45:44 AM
                 string dateFormat = now.ToShortDateString();  // display format:  5/22/2010
 
+                string boxSelectConfirmation = employeeListBox.SelectedItem.ToString().ToLower().Trim();
+                string writtenConfirmation = textBox2.Text.ToLower().Trim();
+                if (boxSelectConfirmation != writtenConfirmation)
+                {
+                    System.Windows.Forms.MessageBox.Show("ERROR:Selected name and written name do not match. NOT LOGGED OUT");
+                    return;
+                }
+                
                 // Retrieve EmployeeID
                 // clear and connect to database
                 MySqlConnection.ClearAllPools();
                 MySqlConnection conn = new MySqlConnection("server=localhost;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
                 string EmployeeID = "";
 
-                // populate listbox with active employee names from employees table            
+                // Get appropriate ID #       
                 try
                 {
 
@@ -216,19 +232,20 @@ namespace TimeManagerCSharp
 
                 conn.Close();
 
-                // ensure name is not already logged in
+                // ensure name is not already logged in 
                 try
                 {
 
                     conn.Open();
 
-                    string SQLTemplate = "SELECT * FROM signout WHERE EmployeeID ='{0}' and Date ='{1}'";
+                    string SQLTemplate = "SELECT * FROM signin WHERE EmployeeID ='{0}' and Date ='{1}'";
                     string SQL = string.Format(SQLTemplate, EmployeeID, dateFormat);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read() == true)
+                    bool loginConfirmation = reader.HasRows;
+                    if (reader.HasRows == false)
                     {
-                        System.Windows.Forms.MessageBox.Show("Already Signed In!");
+                        System.Windows.Forms.MessageBox.Show("You have not logged in today, Logout Failed!");
                         return;
                     }
 
@@ -241,6 +258,37 @@ namespace TimeManagerCSharp
                 }
 
                 conn.Close();
+
+
+                // ensure name is not already logged out 
+                try
+                {
+
+                    conn.Open();
+
+                    string SQLTemplate = "SELECT * FROM signout WHERE EmployeeID ='{0}' and Date ='{1}'";
+                    string SQL = string.Format(SQLTemplate, EmployeeID, dateFormat);
+                    MySqlCommand cmd = new MySqlCommand(SQL, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    bool loginConfirmation = reader.HasRows;
+                    if (reader.HasRows == true)
+                    {
+                        System.Windows.Forms.MessageBox.Show("You are already logged out, Logout Failed!");
+                        return;
+                    }
+
+
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+                conn.Close();
+
+
+
 
                 // Insert Date, Time and ID into signout Table of TimeManager
                 try
@@ -261,8 +309,9 @@ namespace TimeManagerCSharp
                 }
                 conn.Close();
                 System.Windows.Forms.MessageBox.Show("Logout Successful");
-
+                
             }
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -321,5 +370,14 @@ namespace TimeManagerCSharp
             Application.Exit();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
