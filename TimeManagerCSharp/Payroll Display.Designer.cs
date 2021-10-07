@@ -34,7 +34,7 @@ namespace TimeManagerCSharp
             this.endDateLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.adminReturnButton = new System.Windows.Forms.Button();
-            this.employeeReturnButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,22 +88,22 @@ namespace TimeManagerCSharp
             this.adminReturnButton.UseVisualStyleBackColor = true;
             this.adminReturnButton.Click += new System.EventHandler(this.adminReturnButton_Click);
             // 
-            // employeeReturnButton
+            // button2
             // 
-            this.employeeReturnButton.Location = new System.Drawing.Point(418, 395);
-            this.employeeReturnButton.Name = "employeeReturnButton";
-            this.employeeReturnButton.Size = new System.Drawing.Size(169, 29);
-            this.employeeReturnButton.TabIndex = 5;
-            this.employeeReturnButton.Text = "Return to Employee Area";
-            this.employeeReturnButton.UseVisualStyleBackColor = true;
-            this.employeeReturnButton.Click += new System.EventHandler(this.employeeReturnButton_Click);
+            this.button2.Location = new System.Drawing.Point(418, 395);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(169, 29);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Return to Employee Area";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.employeeReturnButton_Click);
             // 
             // PayrollDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.employeeReturnButton);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.adminReturnButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.endDateLabel);
@@ -125,6 +125,6 @@ namespace TimeManagerCSharp
         private System.Windows.Forms.Label endDateLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button adminReturnButton;
-        private System.Windows.Forms.Button employeeReturnButton;
+        private System.Windows.Forms.Button button2;
     }
 }

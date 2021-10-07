@@ -17,24 +17,33 @@ namespace TimeManagerCSharp
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MainMenu f1 = new MainMenu();
-            this.Hide();
-            f1.ShowDialog();
-            this.Close();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void RequestForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void requestInstructLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void requestTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+
             //capture text input
-            string body = richTextBox1.Text;
+            string body = requestTextBox.Text;
 
 
             //capture time 
@@ -42,10 +51,13 @@ namespace TimeManagerCSharp
             string nowFormat = now.ToString("yyyy - MM - dd hh: mm:ss");
             string subject = string.Format("TimeManager Adjustment Request {0}", nowFormat);
 
+            // Configure sneder and recipient
             var fromAddress = new MailAddress("n.almeida3300@gmail.com", "North Star Support");
             var toAddress = new MailAddress("northstarautomotives@gmail.com", "North Star Auto");
             const string fromPassword = "OrionsBelt";
+            
 
+            // Configure the message details
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -61,20 +73,22 @@ namespace TimeManagerCSharp
                 Body = body
             })
             {
+                // Send Message
                 smtp.Send(message);
             }
-            System.Windows.Forms.MessageBox.Show("Message Successfully Sent");
+            // Inform the user that there message sent 
+            MessageBox.Show("Message Successfully Sent");
 
         }
 
-        private void RequestForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void returnButton_Click(object sender, EventArgs e)
         {
 
+            // close RequestForm and open MainMenu
+            MainMenu f1 = new MainMenu();
+            this.Hide();
+            f1.ShowDialog();
+            this.Close();
         }
     }
 }
