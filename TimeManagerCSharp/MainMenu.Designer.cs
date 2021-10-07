@@ -31,16 +31,16 @@ namespace TimeManagerCSharp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.employeeListBox = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.signInButton = new System.Windows.Forms.Button();
+            this.signOutButton = new System.Windows.Forms.Button();
+            this.requestButton = new System.Windows.Forms.Button();
+            this.adminButton = new System.Windows.Forms.Button();
+            this.passwordBox = new System.Windows.Forms.TextBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.employeeWrittenInput = new System.Windows.Forms.TextBox();
+            this.employeeInstructLabel = new System.Windows.Forms.Label();
+            this.adminDescriptionLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // employeeListBox
@@ -51,120 +51,120 @@ namespace TimeManagerCSharp
             this.employeeListBox.Name = "employeeListBox";
             this.employeeListBox.Size = new System.Drawing.Size(266, 244);
             this.employeeListBox.TabIndex = 0;
-            this.employeeListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.employeeListBox.SelectedIndexChanged += new System.EventHandler(this.employeeListBox_SelectedIndexChanged);
             // 
-            // button1
+            // signInButton
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(49, 365);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Sign In";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.signInButton.BackColor = System.Drawing.SystemColors.Control;
+            this.signInButton.Location = new System.Drawing.Point(49, 365);
+            this.signInButton.Name = "signInButton";
+            this.signInButton.Size = new System.Drawing.Size(94, 29);
+            this.signInButton.TabIndex = 1;
+            this.signInButton.Text = "Sign In";
+            this.signInButton.UseVisualStyleBackColor = true;
+            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
-            // button2
+            // signOutButton
             // 
-            this.button2.Location = new System.Drawing.Point(221, 364);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Sign Out";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.signOutButton.Location = new System.Drawing.Point(221, 364);
+            this.signOutButton.Name = "signOutButton";
+            this.signOutButton.Size = new System.Drawing.Size(94, 29);
+            this.signOutButton.TabIndex = 2;
+            this.signOutButton.Text = "Sign Out";
+            this.signOutButton.UseVisualStyleBackColor = true;
+            this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
             // 
-            // button3
+            // requestButton
             // 
-            this.button3.Location = new System.Drawing.Point(48, 412);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(267, 29);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Request Time Adjustment";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.requestButton.Location = new System.Drawing.Point(48, 412);
+            this.requestButton.Name = "requestButton";
+            this.requestButton.Size = new System.Drawing.Size(267, 29);
+            this.requestButton.TabIndex = 3;
+            this.requestButton.Text = "Request Time Adjustment";
+            this.requestButton.UseVisualStyleBackColor = true;
+            this.requestButton.Click += new System.EventHandler(this.requestButton_Click);
             // 
-            // button4
+            // adminButton
             // 
-            this.button4.Location = new System.Drawing.Point(493, 412);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(149, 29);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Admin Area";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.adminButton.Location = new System.Drawing.Point(507, 412);
+            this.adminButton.Name = "adminButton";
+            this.adminButton.Size = new System.Drawing.Size(149, 29);
+            this.adminButton.TabIndex = 5;
+            this.adminButton.Text = "Admin Area";
+            this.adminButton.UseVisualStyleBackColor = true;
+            this.adminButton.Click += new System.EventHandler(this.adminButton_Click);
             // 
-            // textBox1
+            // passwordBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(443, 364);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(246, 27);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "Enter Admin Password Here";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.passwordBox.Location = new System.Drawing.Point(459, 364);
+            this.passwordBox.Name = "passwordBox";
+            this.passwordBox.PasswordChar = '*';
+            this.passwordBox.Size = new System.Drawing.Size(246, 27);
+            this.passwordBox.TabIndex = 6;
+            this.passwordBox.Text = "Enter Admin Password Here";
+            this.passwordBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(417, 33);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(351, 285);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
+            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
+            this.pictureBox.InitialImage = null;
+            this.pictureBox.Location = new System.Drawing.Point(417, 33);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(351, 285);
+            this.pictureBox.TabIndex = 7;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox1_Click_1);
             // 
-            // textBox2
+            // employeeWrittenInput
             // 
-            this.textBox2.Location = new System.Drawing.Point(50, 312);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(265, 27);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "type your name here";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.employeeWrittenInput.Location = new System.Drawing.Point(50, 312);
+            this.employeeWrittenInput.Name = "employeeWrittenInput";
+            this.employeeWrittenInput.Size = new System.Drawing.Size(265, 27);
+            this.employeeWrittenInput.TabIndex = 8;
+            this.employeeWrittenInput.Text = "type your name here";
+            this.employeeWrittenInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label1
+            // employeeInstructLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(258, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Click your name  and type your name ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.employeeInstructLabel.AutoSize = true;
+            this.employeeInstructLabel.Location = new System.Drawing.Point(50, 33);
+            this.employeeInstructLabel.Name = "employeeInstructLabel";
+            this.employeeInstructLabel.Size = new System.Drawing.Size(258, 20);
+            this.employeeInstructLabel.TabIndex = 9;
+            this.employeeInstructLabel.Text = "Click your name  and type your name ";
+            this.employeeInstructLabel.Click += new System.EventHandler(this.employeeInstructLabel_Click);
             // 
-            // label2
+            // adminDescriptionLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(475, 331);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Enter Admin Password Here";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.adminDescriptionLabel.AutoSize = true;
+            this.adminDescriptionLabel.Location = new System.Drawing.Point(493, 331);
+            this.adminDescriptionLabel.Name = "adminDescriptionLabel";
+            this.adminDescriptionLabel.Size = new System.Drawing.Size(192, 20);
+            this.adminDescriptionLabel.TabIndex = 10;
+            this.adminDescriptionLabel.Text = "Enter Admin Password Here";
+            this.adminDescriptionLabel.Click += new System.EventHandler(this.adminDescriptionLabel_Click);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(793, 469);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.adminDescriptionLabel);
+            this.Controls.Add(this.employeeInstructLabel);
+            this.Controls.Add(this.employeeWrittenInput);
+            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.passwordBox);
+            this.Controls.Add(this.adminButton);
+            this.Controls.Add(this.requestButton);
+            this.Controls.Add(this.signOutButton);
+            this.Controls.Add(this.signInButton);
             this.Controls.Add(this.employeeListBox);
             this.Name = "MainMenu";
             this.Text = "Time Manager - Employee Area";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Load += new System.EventHandler(this.MainMenu_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,15 +173,15 @@ namespace TimeManagerCSharp
         #endregion
 
         private System.Windows.Forms.ListBox employeeListBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button signInButton;
+        private System.Windows.Forms.Button signOutButton;
+        private System.Windows.Forms.Button requestButton;
+        private System.Windows.Forms.Button adminButton;
+        private System.Windows.Forms.TextBox passwordBox;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.TextBox employeeWrittenInput;
+        private System.Windows.Forms.Label employeeInstructLabel;
+        private System.Windows.Forms.Label adminDescriptionLabel;
     }
 }
 

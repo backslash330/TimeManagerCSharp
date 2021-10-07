@@ -18,26 +18,27 @@ namespace TimeManagerCSharp
         {
             InitializeComponent();
         }
-        
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        // employee list box
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void employeeListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainMenu_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Properties.Resources.nslogo;
+            // intialize logo into the Menu 
+            pictureBox.Image = Properties.Resources.nslogo;
+
             // clear and connect to database
             MySqlConnection.ClearAllPools();
             MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
             MySqlConnection conn2 = new MySqlConnection("server = 192.168.56.1; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
-            // a note to test the changes made. 
+
             // populate listbox with active employee names from employees table            
             try
             {
@@ -62,10 +63,15 @@ namespace TimeManagerCSharp
 
             conn.Close();
             Console.WriteLine("Done.");
-            
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void employeeInstructLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void signInButton_Click(object sender, EventArgs e)
         {
             // make sure name has been picked
             if (employeeListBox.SelectedItem == null)
@@ -75,15 +81,16 @@ namespace TimeManagerCSharp
             else
             {
 
-            // Retrieve and format date and time 
+                // Retrieve and format date and time 
                 string boxSelect = employeeListBox.SelectedItem.ToString();
                 DateTime now = DateTime.Now;
                 string nowFormat = now.ToString("yyyy - MM - dd hh: mm:ss");
                 string timeFormat = now.ToLongTimeString();   // display format:  11:45:44 AM
                 string dateFormat = now.ToShortDateString();  // display format:  5/22/2010
 
+                // Ensure name selected matches name inputted
                 string boxSelectConfirmation = employeeListBox.SelectedItem.ToString().ToLower().Trim();
-                string writtenConfirmation = textBox2.Text.ToLower().Trim();
+                string writtenConfirmation = employeeWrittenInput.Text.ToLower().Trim();
                 if (boxSelectConfirmation != writtenConfirmation)
                 {
                     System.Windows.Forms.MessageBox.Show("ERROR:Selected name and written name do not match. NOT LOGGED OUT");
@@ -166,16 +173,15 @@ namespace TimeManagerCSharp
                     Console.WriteLine(ex.ToString());
                 }
                 conn.Close();
-               System.Windows.Forms.MessageBox.Show("Login Successful");
-              
-            }
+                System.Windows.Forms.MessageBox.Show("Login Successful");
 
+            }
 
 
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void signOutButton_Click(object sender, EventArgs e)
         {
             // make sure name has been picked
             if (employeeListBox.SelectedItem == null)
@@ -193,13 +199,13 @@ namespace TimeManagerCSharp
                 string dateFormat = now.ToShortDateString();  // display format:  5/22/2010
 
                 string boxSelectConfirmation = employeeListBox.SelectedItem.ToString().ToLower().Trim();
-                string writtenConfirmation = textBox2.Text.ToLower().Trim();
+                string writtenConfirmation = employeeWrittenInput.Text.ToLower().Trim();
                 if (boxSelectConfirmation != writtenConfirmation)
                 {
                     System.Windows.Forms.MessageBox.Show("ERROR:Selected name and written name do not match. NOT LOGGED OUT");
                     return;
                 }
-                
+
                 // Retrieve EmployeeID
                 // clear and connect to database
                 MySqlConnection.ClearAllPools();
@@ -309,37 +315,48 @@ namespace TimeManagerCSharp
                 }
                 conn.Close();
                 System.Windows.Forms.MessageBox.Show("Logout Successful");
-                
-            }
 
+            }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void requestButton_Click(object sender, EventArgs e)
         {
+            // Close MainMenu and open RequestForm
             RequestForm f3 = new RequestForm();
             this.Hide();
             f3.ShowDialog();
             this.Close();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void adminDescriptionLabel_Click(object sender, EventArgs e)
         {
 
+        }
 
+        private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void adminButton_Click(object sender, EventArgs e)
+        {
+
+            // Connect to MySQL database
             MySqlConnection.ClearAllPools();
             MySqlConnection conn = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
-
             conn.Open();
 
+            // Create and excecute SQL query
             string SQLTemplate = "SELECT * from adminpassword";
             string SQL = string.Format(SQLTemplate);
             MySqlCommand cmd = new MySqlCommand(SQL, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
+            // Ensure password matches stored password
             while (reader.Read())
             {
                 string correctPassword = reader.GetString(0);
-                string inputPassword = textBox1.Text;
+                string inputPassword = passwordBox.Text;
                 if (inputPassword == correctPassword)
                 {
                     AdminMenu f2 = new AdminMenu();
@@ -352,31 +369,6 @@ namespace TimeManagerCSharp
                     System.Windows.Forms.MessageBox.Show("Incorrect Password");
                 }
             }
-
-        } 
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
     }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace TimeManagerCSharp
 {
@@ -100,7 +95,7 @@ namespace TimeManagerCSharp
                     string SQL = string.Format(SQLTemplate, firstName, lastName);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    
+
                     // Make sure that an employee with the same name does not already exist
                     if (reader.Read() == true)
                     {
