@@ -30,11 +30,11 @@ namespace TimeManagerCSharp
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.startDateLabel = new System.Windows.Forms.Label();
+            this.endDateLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.adminReturnButton = new System.Windows.Forms.Button();
+            this.employeeReturnButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,23 +50,23 @@ namespace TimeManagerCSharp
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // label1
+            // startDateLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(177, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.startDateLabel.AutoSize = true;
+            this.startDateLabel.Location = new System.Drawing.Point(177, 22);
+            this.startDateLabel.Name = "startDateLabel";
+            this.startDateLabel.Size = new System.Drawing.Size(50, 20);
+            this.startDateLabel.TabIndex = 1;
+            this.startDateLabel.Text = "label1";
             // 
-            // label2
+            // endDateLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(483, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.endDateLabel.AutoSize = true;
+            this.endDateLabel.Location = new System.Drawing.Point(483, 22);
+            this.endDateLabel.Name = "endDateLabel";
+            this.endDateLabel.Size = new System.Drawing.Size(50, 20);
+            this.endDateLabel.TabIndex = 2;
+            this.endDateLabel.Text = "label2";
             // 
             // label3
             // 
@@ -78,36 +78,36 @@ namespace TimeManagerCSharp
             this.label3.Text = "to";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // button1
+            // adminReturnButton
             // 
-            this.button1.Location = new System.Drawing.Point(186, 395);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(169, 29);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Return to Admin Area";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.adminReturnButton.Location = new System.Drawing.Point(186, 395);
+            this.adminReturnButton.Name = "adminReturnButton";
+            this.adminReturnButton.Size = new System.Drawing.Size(169, 29);
+            this.adminReturnButton.TabIndex = 4;
+            this.adminReturnButton.Text = "Return to Admin Area";
+            this.adminReturnButton.UseVisualStyleBackColor = true;
+            this.adminReturnButton.Click += new System.EventHandler(this.adminReturnButton_Click);
             // 
-            // button2
+            // employeeReturnButton
             // 
-            this.button2.Location = new System.Drawing.Point(418, 395);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(169, 29);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Return to Employee Area";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.employeeReturnButton.Location = new System.Drawing.Point(418, 395);
+            this.employeeReturnButton.Name = "employeeReturnButton";
+            this.employeeReturnButton.Size = new System.Drawing.Size(169, 29);
+            this.employeeReturnButton.TabIndex = 5;
+            this.employeeReturnButton.Text = "Return to Employee Area";
+            this.employeeReturnButton.UseVisualStyleBackColor = true;
+            this.employeeReturnButton.Click += new System.EventHandler(this.employeeReturnButton_Click);
             // 
             // PayrollDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.employeeReturnButton);
+            this.Controls.Add(this.adminReturnButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.endDateLabel);
+            this.Controls.Add(this.startDateLabel);
             this.Controls.Add(this.dataGridView1);
             this.Name = "PayrollDisplay";
             this.Text = "Payroll Display";
@@ -121,10 +121,10 @@ namespace TimeManagerCSharp
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label startDateLabel;
+        private System.Windows.Forms.Label endDateLabel;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button adminReturnButton;
+        private System.Windows.Forms.Button employeeReturnButton;
     }
 }

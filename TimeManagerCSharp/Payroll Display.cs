@@ -1,11 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace TimeManagerCSharp
 {
@@ -15,8 +11,8 @@ namespace TimeManagerCSharp
         public PayrollDisplay(string startDate, string endDate)
         {
             InitializeComponent();
-            label1.Text = startDate;
-            label2.Text = endDate;
+            startDateLabel.Text = startDate;
+            endDateLabel.Text = endDate;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -27,8 +23,8 @@ namespace TimeManagerCSharp
         private void PayrollDisplay_Load(object sender, EventArgs e)
         {
             //turn start date into variable
-            string startDate = label1.Text;
-            string endDate = label2.Text;
+            string startDate = startDateLabel.Text;
+            string endDate = endDateLabel.Text;
             var selectedStartDateTime = DateTime.Parse(startDate);
             var selectedEndDateTime = DateTime.Parse(endDate);
             // System.Windows.Forms.MessageBox.Show(startDate);
@@ -58,7 +54,7 @@ namespace TimeManagerCSharp
             TimeSpan thirtyMinuteBreak = new TimeSpan(0, 3, 0);
             TimeSpan oneHourBeak = new TimeSpan(1, 0, 0);
             TimeSpan billabeHours = new TimeSpan();
-            
+
 
             //grab employeids
             MySqlConnection.ClearAllPools();
@@ -95,9 +91,9 @@ namespace TimeManagerCSharp
                 cell = 1;
                 while (reader.Read())
                 {
-                        string name = reader.GetString(0);
-                        this.dataGridView1.Rows[row].Cells[cell].Value = name;
-                        row = ++(row);
+                    string name = reader.GetString(0);
+                    this.dataGridView1.Rows[row].Cells[cell].Value = name;
+                    row = ++(row);
 
                 }
                 reader.Close();
@@ -124,7 +120,7 @@ namespace TimeManagerCSharp
                     // else, continue to see if the employee logged out on the given day
                     while (reader.Read())
                     {
-                            shiftStartTime = reader.GetString(0);
+                        shiftStartTime = reader.GetString(0);
                     }
 
                     reader.Close();
@@ -133,7 +129,7 @@ namespace TimeManagerCSharp
                     cmd = new MySqlCommand(SQL, conn);
                     reader = cmd.ExecuteReader();
                     shiftEndTime = "";
-  
+
                     // else, contine to calcuate the employees working hours
                     while (reader.Read())
                     {
@@ -205,7 +201,7 @@ namespace TimeManagerCSharp
                 daycountRow = ++(daycountRow);
             }
 
-            
+
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -213,21 +209,18 @@ namespace TimeManagerCSharp
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void adminReturnButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
+            // Close PayrollDisplay and open AdminMenu
             AdminMenu f2 = new AdminMenu();
             this.Hide();
             f2.ShowDialog();
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void employeeReturnButton_Click(object sender, EventArgs e)
         {
+            // Close PayrollDisplay and open AdminMenu
             MainMenu f1 = new MainMenu();
             this.Hide();
             f1.ShowDialog();
