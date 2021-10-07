@@ -16,85 +16,100 @@ namespace TimeManagerCSharp
             InitializeComponent();
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void AdminMenu_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void payrollHoursButton_Click(object sender, EventArgs e)
+        {
+            // intialize variables to pass to PayrollDisplay
+            string nstartDate = startDateTimePicker.Text;
+            string nendDate = endDateTimePicker.Text;
+
+            //Open PayrollDisplay, pass variables and close AdminMenu
+            PayrollDisplay f4 = new PayrollDisplay(nstartDate, nendDate);
+            this.Hide();
+            f4.ShowDialog();
+            this.Close();
+        }
+
+        private void returnButton_Click(object sender, EventArgs e)
+        {
+            // Close AdminMenu and open MainMenu
             MainMenu f1 = new MainMenu();
             this.Hide();
             f1.ShowDialog();
             this.Close();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void startDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void AdminMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void firstNameLabel_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void addemployeeButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (textBox1.Text == "")
+            // Make sure a first name has been entered
+            if (firstNameTextBox.Text == "")
             {
-                System.Windows.Forms.MessageBox.Show("Must Enter a First Name!");
+                MessageBox.Show("Must Enter a First Name!");
                 return;
             }
-            else if (textBox2.Text == "")
+
+            // Make sure a last name has been entered
+            else if (lastNameTextBox.Text == "")
             {
-                System.Windows.Forms.MessageBox.Show("Must Enter a Last Name!");
+                MessageBox.Show("Must Enter a Last Name!");
                 return;
             }
-            else if (radioButton1.Checked == false && radioButton2.Checked == false)
+
+            //Make sure a break option has been entered
+            else if (thirtyMinRadioButton.Checked == false && oneHourRadioButton.Checked == false)
             {
-                System.Windows.Forms.MessageBox.Show("Must Choose a Break Option");
+                MessageBox.Show("Must Choose a Break Option");
                 return;
             }
 
             else
             {
+                // Open connection to MySQL server
                 MySqlConnection.ClearAllPools();
                 MySqlConnection conn = new MySqlConnection("server=localhost;user id=backslash330;password=UrsaMinor;persistsecurityinfo=True;database=timemanager");
                 try
                 {
 
                     conn.Open();
-                    string firstName = textBox1.Text;
-                    string lastName = textBox2.Text;
 
+                    // initialize variables
+                    string firstName = firstNameTextBox.Text;
+                    string lastName = lastNameTextBox.Text;
 
+                    // create SQL statement and execute it 
                     string SQLTemplate = "SELECT * FROM employees WHERE Firstname like '{0}' And LastName like '{1}'";
                     string SQL = string.Format(SQLTemplate, firstName, lastName);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
+                    
+                    // Make sure that an employee with the same name does not already exist
                     if (reader.Read() == true)
                     {
-                        System.Windows.Forms.MessageBox.Show("There is already an Employee with this Name");
+                        MessageBox.Show("There is already an Employee with this Name");
                         return;
                     }
                     else
                     {
+                        // Create SQL statement and excute it
                         reader.Close();
                         string SQLTemplate2 = "INSERT into employees(FirstName, LastName) VALUES('{0}', '{1}')";
                         string SQL2 = string.Format(SQLTemplate2, firstName, lastName);
@@ -102,7 +117,9 @@ namespace TimeManagerCSharp
                         MySqlCommand cmd2 = new MySqlCommand(SQL2, conn);
                         MySqlDataReader reader2 = cmd2.ExecuteReader();
                         reader2.Close();
-                        System.Windows.Forms.MessageBox.Show("Employee Succefully Added!");
+
+                        // Inform user that the process has been successful
+                        MessageBox.Show("Employee Succefully Added!");
                     }
 
 
@@ -116,14 +133,14 @@ namespace TimeManagerCSharp
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void removeEmployeeButton_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (firstNameTextBox.Text == "")
             {
                 System.Windows.Forms.MessageBox.Show("Must Enter a First Name!");
                 return;
             }
-            else if (textBox2.Text == "")
+            else if (lastNameTextBox.Text == "")
             {
                 System.Windows.Forms.MessageBox.Show("Must Enter a Last Name!");
                 return;
@@ -137,8 +154,8 @@ namespace TimeManagerCSharp
                 {
 
                     conn.Open();
-                    string firstName = textBox1.Text;
-                    string lastName = textBox2.Text;
+                    string firstName = firstNameTextBox.Text;
+                    string lastName = lastNameTextBox.Text;
 
 
                     string SQLTemplate = "SELECT * FROM employees WHERE Firstname like '{0}' And LastName like '{1}'";
@@ -170,21 +187,6 @@ namespace TimeManagerCSharp
                     Console.WriteLine(ex.ToString());
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string nstartDate = dateTimePicker1.Text;
-            string nendDate = dateTimePicker2.Text;
-            PayrollDisplay f4 = new PayrollDisplay(nstartDate, nendDate);
-            this.Hide();
-            f4.ShowDialog();
-            this.Close();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
