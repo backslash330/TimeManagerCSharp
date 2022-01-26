@@ -34,27 +34,27 @@ namespace TimeManagerCSharp
             // populate listbox with active employee names from employees table            
             try
             {
-
+                // Open SQL connection
                 conn.Open();
 
+                // get first names from sql and add to list employeeListBox
                 string SQL = "SELECT FirstName FROM employees";
                 MySqlCommand cmd = new MySqlCommand(SQL, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
                     employeeListBox.Items.Add(reader.GetString(0));
                 }
                 reader.Close();
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
 
+            //close connection
             conn.Close();
-            Console.WriteLine("Done.");
+
 
         }
 
@@ -102,35 +102,36 @@ namespace TimeManagerCSharp
                 // populate listbox with active employee names from employees table            
                 try
                 {
-
+                    //open sql connection
                     conn.Open();
 
+                    // store id attached to name in var EmployeeID
                     string SQLTemplate = "SELECT EmployeeID FROM employees WHERE FirstName = '{0}'";
                     string data = boxSelect;
                     string SQL = string.Format(SQLTemplate, data);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
-
                     while (reader.Read())
                     {
                         EmployeeID = reader.GetString(0);
                     }
                     reader.Close();
                 }
-
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
 
+                //close sql connection
                 conn.Close();
 
                 // ensure name is not already logged in
                 try
                 {
-
+                    //open sql connection
                     conn.Open();
 
+                    //check sql for prior login
                     string SQLTemplate = "SELECT * FROM signin WHERE EmployeeID ='{0}' and Date ='{1}'";
                     string SQL = string.Format(SQLTemplate, EmployeeID, dateFormat);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
@@ -149,14 +150,16 @@ namespace TimeManagerCSharp
                     Console.WriteLine(ex.ToString());
                 }
 
+                //close connection
                 conn.Close();
 
                 // Insert Date, Time and ID into signin Table of TimeManager
                 try
                 {
-
+                    //open connection
                     conn.Open();
 
+                    // insert data into table as new entry
                     string SQLTemplate = "INSERT INTO signin(EmployeeID, Date, Time) VALUES ('{0}', '{1}', '{2}')";
                     string SQL = string.Format(SQLTemplate, EmployeeID, dateFormat, timeFormat);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
@@ -194,6 +197,8 @@ namespace TimeManagerCSharp
                 string timeFormat = now.ToLongTimeString();   // display format:  11:45:44 AM
                 string dateFormat = now.ToShortDateString();  // display format:  5/22/2010
 
+
+                //confrim that selected name and written name are the same so that the correct employee is logged in
                 string boxSelectConfirmation = employeeListBox.SelectedItem.ToString().ToLower().Trim();
                 string writtenConfirmation = employeeWrittenInput.Text.ToLower().Trim();
                 if (boxSelectConfirmation != writtenConfirmation)

@@ -11,6 +11,7 @@ namespace TimeManagerCSharp
         private DataGridView payrollDGV = new DataGridView();
         public PayrollDisplay(string startDate, string endDate)
         {
+            // initialize labels to user requested dates
             InitializeComponent();
             startDateLabel.Text = startDate;
             endDateLabel.Text = endDate;
@@ -32,7 +33,6 @@ namespace TimeManagerCSharp
             // clear and connect to database
             MySqlConnection.ClearAllPools();
             MySqlConnection conn_load = new MySqlConnection("server = localhost; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
-            MySqlConnection conn2 = new MySqlConnection("server = 192.168.56.1; user id = backslash330; password = UrsaMinor; persistsecurityinfo = True; database = timemanager");
 
             try
             {
@@ -54,7 +54,7 @@ namespace TimeManagerCSharp
                 reader_load.Close();
 
 
-                // loop through employee tabs and populate
+                // loop through employee tabs and populate with tables
                 foreach (TabPage tp in tabControl1.TabPages)
                 {
                     if(tp.Name == "tabPage1")
@@ -63,7 +63,7 @@ namespace TimeManagerCSharp
                     }
                     else
                     {
-                        // create tab view and add columns
+                        // create table view and add columns
                         DataGridView dgvDynamic = new DataGridView();
                         dgvDynamic.Width = 650;
                         dgvDynamic.Height = 210;
@@ -71,16 +71,17 @@ namespace TimeManagerCSharp
                         dgvDynamic.Columns.Add("date", "date");
                         dgvDynamic.Columns.Add("signin", "signin");
                         dgvDynamic.Columns.Add("signout", "signout");
-                      //  System.Windows.Forms.MessageBox.Show(tp.Text);
 
 
-
+                        //determine the needed number or rows and add them to the table
                         int dynamicRow = 0;
                         for (var day = selectedStartDateTime.Date; day.Date <= selectedEndDateTime.Date; day = day.AddDays(1))
                         {
                             dynamicRow += 1;
                         }
                         dgvDynamic.Rows.Add(dynamicRow);
+
+                        // for each day, find the loggin and logout time and then populate the table
                         dynamicRow = 0;
                         for (var day = selectedStartDateTime.Date; day.Date <= selectedEndDateTime.Date; day = day.AddDays(1))
                         {
@@ -99,11 +100,11 @@ namespace TimeManagerCSharp
                             readerDynamic.Close();
 
                             //set signin time for each row
-                             SQLTemplateDynamic = "SELECT time FROM signin WHERE employeeID ='{0}' and Date = '{1}'";
-                             SQLDynamic = string.Format(SQLTemplateDynamic, id, day.ToShortDateString());
+                            SQLTemplateDynamic = "SELECT time FROM signin WHERE employeeID ='{0}' and Date = '{1}'";
+                            SQLDynamic = string.Format(SQLTemplateDynamic, id, day.ToShortDateString());
                             cmdDynamic = new MySqlCommand(SQLDynamic, conn_load);
-                             readerDynamic = cmdDynamic.ExecuteReader();
-                             var signinTime = "";
+                            readerDynamic = cmdDynamic.ExecuteReader();
+                            var signinTime = "";
                             while (readerDynamic.Read())
                             {
                                 signinTime = readerDynamic.GetString(0);
@@ -138,7 +139,7 @@ namespace TimeManagerCSharp
 
 
 
-
+                            //move to next row in table
                             dynamicRow += 1;
                         }
 
@@ -157,27 +158,13 @@ namespace TimeManagerCSharp
             conn_load.Close();
             Console.WriteLine("Done.");
 
-
-
-
-
-
-
-
-
-
-
-            // System.Windows.Forms.MessageBox.Show(startDate);
-            // format 2021-08-25 same as sql
-
-            // load columns in dataGrid
-            // add table to totals tab
+            // add a table to the first tab (totals)
             DataGridView dgv = new DataGridView();
             dgv.Width = 650;
             dgv.Height = 210;
             tabPage1.Controls.Add(dgv);
             
-
+            //populate with appropriate columns
             dgv.Columns.Add("EmployeeID", "EmployeeID");
             dgv.Columns.Add("Name", "Name");
             dgv.Columns.Add("Amount of Hours Worked", "Amount of Hours Worked");
@@ -200,7 +187,7 @@ namespace TimeManagerCSharp
             TimeSpan breakTotal = new TimeSpan();
             TimeSpan thirtyMinuteBreak = new TimeSpan(0, 3, 0);
             TimeSpan oneHourBeak = new TimeSpan(1, 0, 0);
-            TimeSpan billabeHours = new TimeSpan();
+            TimeSpan billablehours = new TimeSpan();
 
 
             //grab employeids
@@ -250,7 +237,7 @@ namespace TimeManagerCSharp
                 partialDaycount = 0;
                 totalHoursWorked = TimeSpan.Zero;
                 breakTotal = TimeSpan.Zero;
-                billabeHours = TimeSpan.Zero;
+                billablehours = TimeSpan.Zero;
 
                 // Loop through each selected day
                 for (var day = selectedStartDateTime.Date; day.Date <= selectedEndDateTime.Date; day = day.AddDays(1))
@@ -277,8 +264,9 @@ namespace TimeManagerCSharp
                     {
 
                     }
+                    reader.Close();
 
-                        reader.Close();
+                    // get  revelant signout time from signout and store it
                     SQLTemplate = "SELECT time FROM signout WHERE EmployeeID ='{0}' and Date = '{1}'";
                     SQL = string.Format(SQLTemplate, id, day.ToShortDateString());
                     cmd = new MySqlCommand(SQL, conn);
@@ -318,6 +306,7 @@ namespace TimeManagerCSharp
                         // Error between these two lines 
 
 
+                        // calculate the breaks taken that day
                         if (TimeSpan.Compare(hoursWorkedToday, fourHourTS) <= 0)
                         {
 
@@ -332,23 +321,23 @@ namespace TimeManagerCSharp
                         }
                         else
                         {
-                            //MessageBox.Show("lunchbreak calculation Error");
                         }
 
+                        // reset time span
                         hoursWorkedToday = TimeSpan.Zero;
 
 
                     }
 
                 }
-                billabeHours = totalHoursWorked.Subtract(breakTotal);
+                billablehours = totalHoursWorked.Subtract(breakTotal);
 
-
+                // write given employees totals to a row and then move to the next row
                 dgv.Rows[daycountRow].Cells[2].Value = totalHoursWorked.ToString();
                 dgv.Rows[daycountRow].Cells[3].Value = daycount.ToString();
                 dgv.Rows[daycountRow].Cells[4].Value = partialDaycount.ToString();
                 dgv.Rows[daycountRow].Cells[5].Value = breakTotal.ToString();
-                dgv.Rows[daycountRow].Cells[6].Value = billabeHours.ToString();
+                dgv.Rows[daycountRow].Cells[6].Value = billablehours.ToString();
                 daycountRow = ++(daycountRow);
             }
 

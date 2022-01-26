@@ -69,9 +69,10 @@ namespace TimeManagerCSharp
                 // find employeeIDs for relative names         
                 try
                 {
-
+                    //open connection
                     conn.Open();
 
+                    // get employee id for name
                     string SQLTemplate = "SELECT EmployeeID FROM employees WHERE FirstName = '{0}'";
                     string data = boxSelect;
                     string SQL = string.Format(SQLTemplate, data);
@@ -95,14 +96,16 @@ namespace TimeManagerCSharp
                 // Insert Date, SigninTime, SignoutTime, Notes and ID into misseddays Table of TimeManager
                 try
                 {
+                    //initialize variable
                     string notes = richTextBox1.Text;
                     string date = dateTimePicker.Text;
                     string startTime = startDateTimePicker.Text;
                     string endTime = endDateTimePicker.Text;
                    
-
+                    //open connection
                     conn.Open();
 
+                    //insert data as new entry into misseddays
                     string SQLTemplate = "INSERT INTO misseddays(EmployeeID, date, signinTime, signoutTime, notes) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')";
                     string SQL = string.Format(SQLTemplate, EmployeeID, date, startTime, endTime, notes);
                     MySqlCommand cmd = new MySqlCommand(SQL, conn);
@@ -114,67 +117,12 @@ namespace TimeManagerCSharp
                 {
                     Console.WriteLine(ex.ToString());
                 }
+                //close connection and inform user that the process was successful
                 conn.Close();
                 System.Windows.Forms.MessageBox.Show("Submission succesful, management will review your Form.");
 
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /* PREVIOUS SUBMIT BUTTON FUNCTIONALITY
-
-            //capture text input FIX THIS 
-            string body = "ERROR";
-
-
-            //capture time 
-            DateTime now = DateTime.Now;
-            string nowFormat = now.ToString("yyyy - MM - dd hh: mm:ss");
-            string subject = string.Format("TimeManager Adjustment Request {0}", nowFormat);
-
-            // Configure sneder and recipient
-            var fromAddress = new MailAddress("n.almeida3300@gmail.com", "North Star Support");
-            var toAddress = new MailAddress("northstarautomotives@gmail.com", "North Star Auto");
-            const string fromPassword = "OrionsBelt";
-            
-
-            // Configure the message details
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-                // Send Message
-                smtp.Send(message);
-            }
-            // Inform the user that there message sent 
-            MessageBox.Show("Message Successfully Sent");
-            */
         }
 
         private void returnButton_Click(object sender, EventArgs e)
@@ -208,13 +156,13 @@ namespace TimeManagerCSharp
             // populate listbox with active employee names from employees table            
             try
             {
-
+                //open connection
                 conn.Open();
 
+                //get first name and add to list box
                 string SQL = "SELECT FirstName FROM employees";
                 MySqlCommand cmd = new MySqlCommand(SQL, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
                     employeeListBox.Items.Add(reader.GetString(0));
@@ -228,7 +176,6 @@ namespace TimeManagerCSharp
             }
 
             conn.Close();
-            Console.WriteLine("Done.");
 
     }
 
