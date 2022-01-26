@@ -76,12 +76,14 @@ namespace TimeManagerCSharp
             // 
             // requestButton
             // 
+            this.requestButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.requestButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.requestButton.Location = new System.Drawing.Point(48, 412);
             this.requestButton.Name = "requestButton";
             this.requestButton.Size = new System.Drawing.Size(267, 29);
             this.requestButton.TabIndex = 3;
-            this.requestButton.Text = "Request Time Adjustment";
-            this.requestButton.UseVisualStyleBackColor = true;
+            this.requestButton.Text = "Forget to signin? Click Here!";
+            this.requestButton.UseVisualStyleBackColor = false;
             this.requestButton.Click += new System.EventHandler(this.requestButton_Click);
             // 
             // adminButton

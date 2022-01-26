@@ -183,5 +183,18 @@ namespace TimeManagerCSharp
                 }
             }
         }
+
+        private void daysButton_Click(object sender, EventArgs e)
+        {
+            // intialize variables to pass to PayrollDisplay
+            string nstartDate = startDateTimePicker.Text;
+            string nendDate = endDateTimePicker.Text;
+
+            //Open PayrollDisplay, pass variables and close AdminMenu
+            MissedMenu f4 = new MissedMenu(nstartDate, nendDate);
+            this.Hide();
+            f4.ShowDialog();
+            this.Close();
+        }
     }
 }

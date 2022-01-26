@@ -73,6 +73,10 @@ namespace TimeManagerCSharp
             else
             {
 
+
+
+
+
                 // Retrieve and format date and time 
                 string boxSelect = employeeListBox.SelectedItem.ToString();
                 DateTime now = DateTime.Now;

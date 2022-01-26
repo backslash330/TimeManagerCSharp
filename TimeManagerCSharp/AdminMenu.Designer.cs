@@ -45,6 +45,7 @@ namespace TimeManagerCSharp
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.thirtyMinRadioButton = new System.Windows.Forms.RadioButton();
             this.oneHourRadioButton = new System.Windows.Forms.RadioButton();
+            this.daysButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startDateTimePicker
@@ -196,11 +197,22 @@ namespace TimeManagerCSharp
             this.oneHourRadioButton.Text = "1 Hour Unpaid Break";
             this.oneHourRadioButton.UseVisualStyleBackColor = true;
             // 
+            // daysButton
+            // 
+            this.daysButton.Location = new System.Drawing.Point(135, 288);
+            this.daysButton.Name = "daysButton";
+            this.daysButton.Size = new System.Drawing.Size(157, 29);
+            this.daysButton.TabIndex = 19;
+            this.daysButton.Text = "See Missed Days";
+            this.daysButton.UseVisualStyleBackColor = true;
+            this.daysButton.Click += new System.EventHandler(this.daysButton_Click);
+            // 
             // AdminMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 451);
+            this.Controls.Add(this.daysButton);
             this.Controls.Add(this.oneHourRadioButton);
             this.Controls.Add(this.thirtyMinRadioButton);
             this.Controls.Add(this.lastNameTextBox);
@@ -242,5 +254,6 @@ namespace TimeManagerCSharp
         private System.Windows.Forms.TextBox lastNameTextBox;
         private System.Windows.Forms.RadioButton thirtyMinRadioButton;
         private System.Windows.Forms.RadioButton oneHourRadioButton;
+        private System.Windows.Forms.Button daysButton;
     }
 }
