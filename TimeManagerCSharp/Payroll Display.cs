@@ -65,6 +65,8 @@ namespace TimeManagerCSharp
                     {
                         // create tab view and add columns
                         DataGridView dgvDynamic = new DataGridView();
+                        dgvDynamic.Width = 670;
+                        dgvDynamic.Height = 210;
                         tp.Controls.Add(dgvDynamic);
                         dgvDynamic.Columns.Add("date", "date");
                         dgvDynamic.Columns.Add("signin", "signin");
@@ -171,7 +173,8 @@ namespace TimeManagerCSharp
             // load columns in dataGrid
             // add table to totals tab
             DataGridView dgv = new DataGridView();
-
+            dgv.Width = 670;
+            dgv.Height = 210;
             tabPage1.Controls.Add(dgv);
             
 
