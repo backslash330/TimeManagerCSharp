@@ -331,13 +331,12 @@ namespace TimeManagerCSharp
 
                 }
                 billablehours = totalHoursWorked.Subtract(breakTotal);
-
                 // write given employees totals to a row and then move to the next row
-                dgv.Rows[daycountRow].Cells[2].Value = totalHoursWorked.ToString();
+                dgv.Rows[daycountRow].Cells[2].Value = (int)totalHoursWorked.TotalHours + totalHoursWorked.ToString(@"\:mm\:ss");
                 dgv.Rows[daycountRow].Cells[3].Value = daycount.ToString();
                 dgv.Rows[daycountRow].Cells[4].Value = partialDaycount.ToString();
-                dgv.Rows[daycountRow].Cells[5].Value = breakTotal.ToString();
-                dgv.Rows[daycountRow].Cells[6].Value = billablehours.ToString();
+                dgv.Rows[daycountRow].Cells[5].Value = breakTotal.TotalHours.ToString();
+                dgv.Rows[daycountRow].Cells[6].Value = billablehours.TotalHours.ToString();
                 daycountRow = ++(daycountRow);
             }
 
